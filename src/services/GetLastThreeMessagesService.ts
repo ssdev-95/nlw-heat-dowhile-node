@@ -1,13 +1,27 @@
+import { 
+	db, collection, getDocs, query, limit
+} from '../fire/setup'
+
 class GetLastThreeMessagesService {
 	async execute () {
-		 /*const messages = await prismaClient.message.findMany({
-			 take: 3,
-			 orderBy: { created_at: 'desc' },
-			 include: { user: true }
-		 })
+		const messagesRef = query(
+			collection(db, 'messages'),
+			limit(3)
+		)
 
-		 return messages;*/
-		return [];
+		const snapshot = await getDocs(messagesRef)
+		let messages = []
+
+		snapshot.forEach(doc => {
+			const message = {
+				id: doc.id,
+				...doc.data()
+			}
+			console.log(message)
+			messages = [...messages, message]
+		})
+
+		return messages;
 	}
 }
 

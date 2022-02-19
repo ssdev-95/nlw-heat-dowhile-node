@@ -7,11 +7,11 @@ class GetLastThreeMessagesController {
 
 		const result = await service.execute()
 
-		if (!result.length) {
+		/*if (!result.length) {
 			res.status(999).json({
 				Status: 'No messages found'
 			})
-		}
+		}*/
 
 		return res.json(result)
 	}
