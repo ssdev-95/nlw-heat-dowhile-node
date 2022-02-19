@@ -1,4 +1,3 @@
-import prismaClient from '../prisma'
 import { io } from '../server'
 
 interface IMessageServiceProps {
@@ -8,7 +7,7 @@ interface IMessageServiceProps {
 
 class CreateMessageService {
   async execute ({text, user_id}: IMessageServiceProps) {
-		const message = await prismaClient
+		/*const message = await prismaClient
 		.message
     .create({
 		  data: {
@@ -32,7 +31,8 @@ class CreateMessageService {
     }
 
     io.emit('new_message' , infoWS)
-		return message;
+		return message;*/
+	 return {}
 	}
 }
 

@@ -1,5 +1,7 @@
 import axios from 'axios'
-import prismaClient from '../prisma'
+import { 
+	collection, addDoc, doc, db, getDoc, where
+} from '../fire/setup'
 import { sign } from 'jsonwebtoken'
 
 interface IAccessTokenResponse {
@@ -13,10 +15,14 @@ interface IUserResponse {
 	avatar_url: string;
 }
 
+interface IUserSocial {
+	[key:string]: string | null;
+}
+
 const secret = process.env.JWT_SECRET
 
 class AuthenticateUserService {
-  async execute (code: string) {
+  async execute (code: string, user_social: IUserSocial) {
 		const url = "https://githun.com/login/oauth/access_token"
 		const { data: accessTokenResponse } = await axios.post<IAccessTokenResponse>(url, null, {
 			params: {
@@ -36,20 +42,16 @@ class AuthenticateUserService {
 		})
 
 		const { login, id, name, avatar_url } = userResponse;
-		let user = await prismaClient.user.findFirst({
-			where: {
-				github_id: id
-			}
-		})
+		const userDocRef = doc(db, 'users', login)
+		let user:any = await getDoc(userDocRef)
 
-		if (!user) {
-			user = await prismaClient.user.create({
-				data: {
-					github_id: id,
-					avatar_url,
-					name,
-					login
-				}
+		if (!user.exists()) {
+			user = await addDoc(collection(db, 'users'), {
+				github_id: id,
+				avatar_url,
+				name,
+				login,
+				social: { ...user_social }
 			})
 		}
 
