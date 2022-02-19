@@ -1,4 +1,4 @@
-import { io } from '../server'
+//import { io } from '../server'
 
 interface IMessageServiceProps {
 	text: string;

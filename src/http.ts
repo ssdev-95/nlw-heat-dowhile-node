@@ -1,6 +1,5 @@
-import { serverHTTP } from './server'
+import { /*serverHTTP,*/ app } from './server'
+const PORT = 9000
+const MESSAGE = `server is running on port ${PORT}`
 
-serverHTTP.listen(
-	9000,
-	()=>console.log('server is running on port 9000')
-);
+app.listen(PORT,	()=>console.log(MESSAGE));
