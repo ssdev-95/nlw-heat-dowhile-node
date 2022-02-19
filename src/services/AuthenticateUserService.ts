@@ -55,6 +55,8 @@ class AuthenticateUserService {
 			})
 		}
 
+		console.log(user)
+
 		const token = sign( user, secret, {
 			subject: user.id,
 			expiresIn: "1d"
