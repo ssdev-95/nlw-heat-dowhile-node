@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "backend of dowhile apps",
   "license": "GLWTPL",
-  "main": "index.ts",
+  "main": "build/index.js",
   "engines": {
     "node": "16.x",
     "yarn": "1.x"
   },
   "scripts": {
     "dev": "ts-node-dev --exit-child src/http.ts",
-    "start":"node build/index.js",
-    "build": "tsc ./build",
+    "start":"node build/http.js",
+    "build": "tsc",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [

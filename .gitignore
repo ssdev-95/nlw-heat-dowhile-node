@@ -3,3 +3,6 @@ node_modules
 
 prisma/migrations
 prisma/dev.db*
+
+#build folder
+build/
