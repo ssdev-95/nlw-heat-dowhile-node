@@ -5,7 +5,10 @@
   "license": "MIT",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node-dev --exit-child src/http.ts"
+    "dev": "ts-node-dev --exit-child src/http.ts",
+    "start":"node build/index.js",
+    "build": "tsc ./build",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [
     "mit",
