@@ -1,11 +1,14 @@
+import { doc, db, collection, getDoc } from '../fire/setup'
+
 class ProfileUserService {
   async execute (user_id: string) {
-		/*const user = await prismaClient
-		  .user
-			.findFirst({ where: { id: user_id } })
+		const userRef = doc(collection(db, 'users'), user_id)
+		const user = await getDoc(userRef)
 
-		return user;*/
-	 return {};
+		return {
+			id: user.id,
+			...user.data()
+		};
   }
 }
 

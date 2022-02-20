@@ -4,6 +4,7 @@ import { AuthenticateUserController } from './controllers/AuthenticateUserContro
 import { CreateMessageController } from './controllers/CreateMessageController'
 import { GetLastThreeMessagesController } from './controllers/GetLastThreeMessagesController'
 import { ProfileUserController } from './controllers/ProfileUserController'
+import { GetMessageAuthorDataController } from './controllers/GetMessageAuthorDataController'
 
 import { ensureAuthenticated } from './middlewares'
 
@@ -35,6 +36,11 @@ router.post(
 router.get(
 	'/messages/last_3',
 	new GetLastThreeMessagesController().handle
+)
+
+router.get(
+	'/messages',
+	new GetMessageAuthorDataController().handle
 )
 
 router.get(
