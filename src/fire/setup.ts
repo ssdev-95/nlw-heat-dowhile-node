@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
 	collection, addDoc, doc, getFirestore, getDoc, where,
-	query, limit, getDocs
+	query, limit, getDocs, setDoc
 } from "firebase/firestore"
 
 const config = {
@@ -17,6 +17,6 @@ const app = initializeApp(config);
 const db = getFirestore()
 
 export { 
-	app, db, collection, addDoc, doc, 
+	app, db, collection, addDoc, doc, setDoc, 
 	getDoc, where, query, limit, getDocs
 }

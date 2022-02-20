@@ -17,7 +17,6 @@ class GetLastThreeMessagesService {
 				id: doc.id,
 				...doc.data()
 			}
-			console.log(message)
 			messages = [...messages, message]
 		})
 

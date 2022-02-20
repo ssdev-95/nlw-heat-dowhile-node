@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { 
-	collection, addDoc, query, db, getDocs, where
+	collection, doc, db, getDoc, where, setDoc
 } from '../fire/setup'
 import { sign } from 'jsonwebtoken'
 
@@ -42,31 +42,40 @@ class AuthenticateUserService {
 		})
 
 		const { login, id: github_id, name, avatar_url } = userResponse;
-		const userRef = query(collection(db, 'users'), where('github_id', '==', github_id))
-		let userSnap:any = await getDocs(userRef)
+		const userRef = doc(collection(db, 'users'), String(github_id))
+		let snapshot:any = await getDoc(userRef)
 
-		if (!userSnap) {
-			userSnap = await addDoc(collection(db, 'users'), {
-				github_id,
+		let user:any = {}
+
+		if (snapshot.exists()) {
+			user = {
+				id: snapshot.id,
+				...snapshot.data()
+			}
+		} else {
+			await setDoc(doc(db, 'users', String(github_id)), {
+				id: String(github_id),
 				avatar_url,
 				name,
 				login,
 				social: { ...user_social }
 			})
+
+			user = {
+				id: String(github_id),
+				avatar_url,
+				name,
+				login,
+				social: { ...user_social }
+			}
 		}
 
-		/*const user = {
-			id: userSnap.id,
-			...userSnap.data()
-		}*/
-	 console.log(userSnap.data())
-
-		const token = sign( JSON.parse(JSON.stringify(userSnap)), secret, {
-			subject: `${userSnap.id}`,
+		const token = sign( JSON.parse(JSON.stringify(user)), secret, {
+			subject: String(user.id),
 			expiresIn: "1d"
 		})
 
-		return { token, user: userSnap };
+		return { token, user };
   }
 }
 
