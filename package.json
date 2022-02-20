@@ -1,9 +1,13 @@
 {
-  "name": "dwhile-backend",
+  "name": "dowhile-backend",
   "version": "1.0.0",
   "description": "backend of dowhile apps",
-  "license": "MIT",
+  "license": "GLWTPL",
   "main": "index.ts",
+  "engines": {
+    "node": "16.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "dev": "ts-node-dev --exit-child src/http.ts",
     "start":"node build/index.js",
