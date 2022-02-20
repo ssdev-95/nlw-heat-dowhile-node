@@ -10,7 +10,7 @@ class AuthenticateUserController {
 			const result = await service.execute(code, social)
 			return res.json(result);
 		} catch(err) {
-			return res.json({ Error: err.message });
+			return res.status(666).json({ Error: err.message });
 		}
 	}
 }

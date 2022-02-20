@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { 
-	collection, addDoc, doc, db, getDoc, where
+	collection, addDoc, query, db, getDocs, where
 } from '../fire/setup'
 import { sign } from 'jsonwebtoken'
 
@@ -23,7 +23,7 @@ const secret = process.env.JWT_SECRET
 
 class AuthenticateUserService {
   async execute (code: string, user_social: IUserSocial) {
-		const url = "https://githun.com/login/oauth/access_token"
+		const url = "https://github.com/login/oauth/access_token"
 		const { data: accessTokenResponse } = await axios.post<IAccessTokenResponse>(url, null, {
 			params: {
 				client_id: process.env.GITHUB_CLIENT_ID,
@@ -41,13 +41,13 @@ class AuthenticateUserService {
 			}
 		})
 
-		const { login, id, name, avatar_url } = userResponse;
-		const userDocRef = doc(db, 'users', login)
-		let user:any = await getDoc(userDocRef)
+		const { login, id: github_id, name, avatar_url } = userResponse;
+		const userRef = query(collection(db, 'users'), where('github_id', '==', github_id))
+		let userSnap:any = await getDocs(userRef)
 
-		if (!user.exists()) {
-			user = await addDoc(collection(db, 'users'), {
-				github_id: id,
+		if (!userSnap) {
+			userSnap = await addDoc(collection(db, 'users'), {
+				github_id,
 				avatar_url,
 				name,
 				login,
@@ -55,14 +55,18 @@ class AuthenticateUserService {
 			})
 		}
 
-		console.log(user)
+		/*const user = {
+			id: userSnap.id,
+			...userSnap.data()
+		}*/
+	 console.log(userSnap.data())
 
-		const token = sign( user, secret, {
-			subject: user.id,
+		const token = sign( JSON.parse(JSON.stringify(userSnap)), secret, {
+			subject: `${userSnap.id}`,
 			expiresIn: "1d"
 		})
 
-		return { token, user };
+		return { token, user: userSnap };
   }
 }
 
