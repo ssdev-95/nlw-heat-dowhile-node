@@ -1,4 +1,5 @@
 //import { io } from '../server'
+import { addDoc, db, collection, getDoc } from '../fire/setup'
 
 interface IMessageServiceProps {
 	text: string;
@@ -7,19 +8,15 @@ interface IMessageServiceProps {
 
 class CreateMessageService {
   async execute ({text, user_id}: IMessageServiceProps) {
-		/*const message = await prismaClient
-		.message
-    .create({
-		  data: {
-				text,
-				user_id
-			},
-			include: {
-				user: true
-			}
+		const ref = collection(db, 'messages')
+		const messageRef = await addDoc(ref, {
+			text,
+			user_id
 		})
 
-		const infoWS = {
+		const message = await getDoc(messageRef)
+
+		/*const infoWS = {
 			id: message.id,
 			text: message.text,
 			user_id: message.user_id,
@@ -30,9 +27,11 @@ class CreateMessageService {
 			}
     }
 
-    io.emit('new_message' , infoWS)
-		return message;*/
-	 return {}
+    io.emit('new_message' , infoWS)*/
+		return {
+			id: message.id,
+			...message.data()
+		};
 	}
 }
 
