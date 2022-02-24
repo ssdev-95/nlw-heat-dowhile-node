@@ -29,11 +29,11 @@ yarn dev
 
 _'/messages'_ (GET) -> Returns info of the author of a message, must pass author_id as query parameter *author* in the request
 
-_'/messages/last_3'_ (GET only) -> Returns the last three messages
-
 _'/messages'_ (POST) -> Create a new message entry into the database and return's the new message
 
-_'/authenticate'_ (POST only) -> Perform user creation, if doesn't exists, and returns info about user Android a jwt token for authenticated requests
+_'/messages/last_3'_ (GET only) -> Returns the last three messages
+
+_'/authenticate'_ (POST only) -> Perform user creation, if doesn't exists, and returns info about user and a jwt token for authenticated requests
 
 _'/profile'_ (GET only) -> Returns the data related to a given,*logged in*, user
 
