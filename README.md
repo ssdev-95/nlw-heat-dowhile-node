@@ -22,7 +22,7 @@ yarn install
 
 > Note: Depending on which platform you may deploy, you would, or not, need to define a **PORT** variable where the application will run on, or maybe it will just be configured by the platform itself automagically :D
 
-![magic](https://tenor.com/view/magical-magic-gif-13543499)
+![magic](./magical-magic.gif)
 
 ### Compiles and hot-reloads for development
 ```
