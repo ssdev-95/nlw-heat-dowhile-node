@@ -20,6 +20,10 @@ yarn install
 > Refer to [NLWHeatDoWhileAppVue](https://github.com/xSallus/nlw-heat-dowhile-app) repo for intruction on how to setup and run the frontend app to consume API in this project,
 > Or consume this API with REST Client of your choice :D
 
+> Note: Depending on which platform you may deploy, you would, or not, need to define a **PORT** variable where the application will run on, or maybe it will just be configured by the platform itself automagically :D
+
+![](https://tenor.com/4ZrH.gif)
+
 ### Compiles and hot-reloads for development
 ```
 yarn dev
