@@ -14,7 +14,7 @@ yarn install
 
 **JWT_SECRET** -> Secret used for jwt token
 
-**API_KEY**, AUTH_DOMAIN**, **PROJECT_ID**, **STORAGE_BUCKET**,
+**API_KEY**, **AUTH_DOMAIN**, **PROJECT_ID**, **STORAGE_BUCKET**,
 **MESSAGING_SENDER_ID**, **APP_ID** -> Variables used to setup connection with the database
 
 
@@ -26,7 +26,7 @@ yarn install
 yarn dev
 ```
 
-The endpoints available in this API:
+## The endpoints available in this API:
 
 _'/messages/last_3'_ (GET only) -> Returns the last three messages
 
