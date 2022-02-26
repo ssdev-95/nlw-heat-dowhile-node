@@ -5,6 +5,7 @@ class AuthenticateUserController {
   async handle (req:Request, res:Response) {
 		const { code, social } = req.body
     const service = new AuthenticateUserService()
+                console.log(req.body)
 
 		try {
 			const result = await service.execute(code, social)
