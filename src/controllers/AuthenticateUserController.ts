@@ -11,7 +11,7 @@ class AuthenticateUserController {
 			return res.json(result);
 		} catch(err) {
                   console.log(err)
-			return res.status(err.status||666).json({ Error: err });
+			return res.status(666).json(err);
 		}
 	}
 }
