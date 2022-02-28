@@ -2,9 +2,9 @@ import { serverHTTP, io /*, app*/ } from './server'
 const PORT = process.env.PORT || 9000;
 const MESSAGE = `server is running on port ${PORT}`
 
-io.on('connection', socket => {
+/*io.on('connection', socket => {
 	console.log('A new client has connected')
-})
+})*/
 
 serverHTTP.listen(PORT,  () => console.log(MESSAGE));
 

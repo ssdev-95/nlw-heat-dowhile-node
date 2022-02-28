@@ -1,5 +1,5 @@
-//import { io } from '../server'
-import { addDoc, db, collection, getDoc } from '../fire/setup'
+import { io } from '../server'
+import { addDoc, db, collection, getDoc, doc } from '../fire/setup'
 
 interface IMessageServiceProps {
 	text: string;
@@ -16,18 +16,22 @@ class CreateMessageService {
 
 		const message = await getDoc(messageRef)
 
-		/*const infoWS = {
+		const userRef = doc(collection(db, 'users'), user_id)
+		const user = await getDoc(userRef)
+
+		const infoWS = {
 			id: message.id,
-			text: message.text,
-			user_id: message.user_id,
-			created_at: message.created_at,
+			text: message.data().text,
+			user_id: message.data().user_id,
+			created_at: Date.now(),
 			user: {
-				name: message.user.name,
-				avatar_url: message.user.avatar_url
+			  id: user.id,
+				...user.data()
 			}
     }
 
-    io.emit('new_message' , infoWS)*/
+    io.emit('new_message' , infoWS)
+
 		return {
 			id: message.id,
 			...message.data()

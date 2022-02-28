@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import { Server } from 'socket.io'
-import http from 'https'
+import http from 'http'
 import cors from 'cors'
 
 import { router } from './routes'
@@ -14,6 +14,10 @@ const io = new Server(serverHTTP, {
   cors: {
 		origin: '*'
 	}
+})
+
+io.on('connection', socket => {
+	console.log(`A new client has connected at: ${socket.id}`)
 })
 
 app.use(express.json())
